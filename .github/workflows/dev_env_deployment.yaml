@@ -53,6 +53,7 @@ jobs:
           region         = "${AWS_REGION}"
           encrypt        = true
           EOF
+          terraform fmt
 
       - name: Terraform init
         id: init

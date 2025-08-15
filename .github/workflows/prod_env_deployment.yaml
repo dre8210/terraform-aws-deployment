@@ -45,7 +45,7 @@ jobs:
         with:
           terraform_version: "1.6.6"
 
-      - name: Create prod.tfbackend
+      - name: Create backend.tfbackend
         run: |
           cat <<EOF > backend.tfbackend
           bucket         = "${PROD_BUCKET}"
