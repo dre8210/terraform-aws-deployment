@@ -45,11 +45,19 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve
 
-      - name: Disable workflow after run
+      - name: Get workflow ID by file path
+        id: get_id
+        run: |
+          WORKFLOW_PATH=".github/workflows/terraform-backend.yml"
+          ID=$(gh api repos/${{ github.repository }}/actions/workflows/$WORKFLOW_PATH --jq '.id')
+          echo "id=$ID" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Disable the workflow
         run: |
-          gh api \
-            repos/${{ github.repository }}/actions/workflows/${{ github.workflow }} \
+          gh api repos/${{ github.repository }}/actions/workflows/${{ steps.get_id.outputs.id }} \
             -X PATCH \
             -f state=disabled
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
