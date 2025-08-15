@@ -52,7 +52,6 @@ jobs:
           key            = "${{ secrets.DEV_STATE_KEY }}"
           region         = "${{ secrets.AWS_REGION }}"
           encrypt        = true
-          use_lockfile = true
           EOF
           pwd
           ls -la
