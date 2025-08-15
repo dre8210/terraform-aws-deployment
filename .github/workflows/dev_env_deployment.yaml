@@ -1,6 +1,11 @@
 name: Deploy Dev Environment Infrastructure
 
 on:
+  workflow_run:
+    workflows:
+      - "backend-bootstrap"
+    types:
+      - completed
   workflow_dispatch:
     inputs:
       terraform_action:
