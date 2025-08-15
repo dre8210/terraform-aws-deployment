@@ -48,13 +48,15 @@ jobs:
       - name: Create backend.tfbackend
         run: |
           cat <<EOF > backend.tfbackend
-          bucket         = "${PROD_BUCKET}"
-          key            = "${PROD_STATE_KEY}"
-          region         = "${AWS_REGION}"
+          bucket         = "${{ secrets.PROD_BUCKET }}"
+          key            = "${{ secrets.PROD_STATE_KEY }}"
+          region         = "${{ secrets.AWS_REGION }}"
           encrypt        = true
+          use_lockfile   = true
           EOF
           pwd
           ls -la
+          cat backend.tfbackend
 
       - name: Terraform init
         id: init
