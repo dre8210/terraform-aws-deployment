@@ -1,7 +1,7 @@
 #VPC AND SUBNETS
 ###################
 module "prod_vpc" {
-  source = "git::https://github.com/dre8210/terraform-aws-modules.git//modules/vpc?ref=0.11.0"
+  source = "git::https://github.com/dre8210/terraform-aws-modules.git//modules/vpc?ref=0.12.0"
 
   vpc_config = {
     cidr_block = var.vpc_name_cidr.cidr_block
