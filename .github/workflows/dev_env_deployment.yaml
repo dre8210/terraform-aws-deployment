@@ -1,0 +1,66 @@
+name: Deploy Dev Environment Infrastructure
+
+on:
+  workflow_dispatch:
+    inputs:
+      terraform_action:
+        type: choice
+        description: select terraform action
+        options:
+          - apply
+          - destroy
+        required: true
+
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy_infra:
+    name: Deploy AWS Infra
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./environments/dev
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/GithubActions
+          role-session-name: github-actions
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.6.6"
+
+      - name: Create dev.tfbackend
+        run: |
+          cat <<EOF > backend.tfbackend
+          bucket         = "${DEV_BUCKET}"
+          key            = "${DEV_STATE_KEY}"
+          region         = "${AWS_REGION}"
+          encrypt        = true
+          use_lockfile    = true
+          EOF
+
+      - name: Terraform init
+        id: init
+        run: terraform init
+
+      - name: Terraform plan
+        run: terraform plan
+
+      - name: Terraform apply
+        if: ${{ github.event.inputs.terraform_action == 'apply' }}
+        run: terraform apply -auto-approve
+
+      - name: Terraform destroy
+        if: ${{ github.event.inputs.terraform_action == 'destroy' }}
+        run: terraform destroy -auto-approve
