@@ -1,7 +1,7 @@
 #VPC AND SUBNETS
 ###################
 module "dev_vpc" {
-  source = "git::https://github.com/dre8210/terraform-aws-modules.git//modules/vpc?ref=0.12.0"
+  source = "git::https://github.com/dre8210/terraform-aws-modules.git//modules/vpc?ref=0.13.0"
 
   vpc_config = {
     cidr_block = var.vpc_name_cidr.cidr_block
@@ -74,7 +74,7 @@ resource "aws_security_group" "dev_alb_sg" {
 #SECURITY GROUPS
 ##################
 module "dev_security_group" {
-  source = "git::https://github.com/dre8210/terraform-aws-modules.git//modules/security-group?ref=0.11.0"
+  source = "git::https://github.com/dre8210/terraform-aws-modules.git//modules/security-group?ref=0.13.0"
 
   vpc_id = module.dev_vpc.vpc_id
 
@@ -115,7 +115,7 @@ module "dev_security_group" {
 #WEBSERVER - EC2 INSTANCES
 #############################
 module "dev_webserver" {
-  source = "git::https://github.com/dre8210/terraform-aws-modules.git//modules/ec2?ref=0.11.0"
+  source = "git::https://github.com/dre8210/terraform-aws-modules.git//modules/ec2?ref=0.13.0"
 
   instance_config = {
     public_instance = {
