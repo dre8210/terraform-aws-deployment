@@ -86,6 +86,7 @@ module "prod_security_group" {
       to_port     = var.sg_public_ssh.to_port
       cidr_blocks = var.sg_public_ssh.cidr_blocks
       description = var.sg_public_ssh.description
+
     }
 
     instance_egress = {
@@ -95,6 +96,7 @@ module "prod_security_group" {
       to_port     = var.sg_public_instance_egress.to_port
       cidr_blocks = var.sg_public_instance_egress.cidr_blocks
       description = var.sg_public_instance_egress.description
+
 
     }
 

@@ -57,12 +57,13 @@ variable "sg_public_ssh" {
   description = "Security Group configuration for Public Subnet SSH"
 
   type = object({
-    type        = string
-    protocol    = string
-    from_port   = number
-    to_port     = number
-    cidr_blocks = list(string)
-    description = string
+    type                     = string
+    protocol                 = string
+    from_port                = number
+    to_port                  = number
+    cidr_blocks              = list(string)
+    source_security_group_id = optional(string, "")
+    description              = string
   })
 }
 
@@ -70,12 +71,13 @@ variable "sg_public_instance_egress" {
   description = "Security Group configuration for Public Subnet SSH"
 
   type = object({
-    type        = string
-    protocol    = string
-    from_port   = number
-    to_port     = number
-    cidr_blocks = list(string)
-    description = string
+    type                     = string
+    protocol                 = string
+    from_port                = number
+    to_port                  = number
+    cidr_blocks              = list(string)
+    source_security_group_id = optional(string, "")
+    description              = string
   })
 }
 
@@ -86,7 +88,7 @@ variable "sg_public_alb_ingress" {
     protocol                 = string
     from_port                = number
     to_port                  = number
-    source_security_group_id = optional(string)
+    source_security_group_id = optional(string, "")
     description              = string
   })
 }
