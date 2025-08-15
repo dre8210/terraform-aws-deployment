@@ -1,7 +1,5 @@
 terraform {
-  backend "s3" {
-    use_lockfile = true
-  }
+  backend "s3" {}
 }
 
 provider "aws" {
