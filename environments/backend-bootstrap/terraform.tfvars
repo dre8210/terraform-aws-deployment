@@ -1,5 +1,5 @@
 
-bucket_prefix = "lsg_group"  
+bucket_prefix = "lsg-group"  
 bucket_suffix = "13082025"  
 
 
