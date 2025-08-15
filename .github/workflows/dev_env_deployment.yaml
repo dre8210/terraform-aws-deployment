@@ -52,7 +52,6 @@ jobs:
           key            = "${DEV_STATE_KEY}"
           region         = "${AWS_REGION}"
           encrypt        = true
-          use_lockfile    = true
           EOF
 
       - name: Terraform init
