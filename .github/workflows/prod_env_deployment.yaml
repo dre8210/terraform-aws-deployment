@@ -54,6 +54,7 @@ jobs:
           encrypt        = true
           EOF
           pwd
+          ls -la
 
       - name: Terraform init
         id: init
